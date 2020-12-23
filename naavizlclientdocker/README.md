@@ -1,6 +1,6 @@
 Building the Client Docker Image
 
-docker build . -t ncollectorclient:v1
+docker build . -t naavizlclient:v1
 
 Running the Client Docker Image
 
