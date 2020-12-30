@@ -74,4 +74,5 @@ COPY run.sh /run.sh
 RUN chmod 0755 /run.sh
 EXPOSE 18002/tcp
 EXPOSE 18002/udp
+EXPOSE 18003/udp
 ENTRYPOINT ["/run.sh"]

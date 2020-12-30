@@ -11,13 +11,15 @@ shopt -s nullglob
 cd /data/incremental
 while true
 do
-    for f in `find . -type f -mmin +1`; do 
+    echo "PROCESSING INCREMENTAL FILES"
+    for f in `find . -type f -mmin +5`; do 
         if ! fuser "$f" >/dev/null 2>/dev/null; then
             echo "EXPORTING $f"
             rwcut $f --timestamp-format=epoch --delimited=,
             rwcut $f --timestamp-format=epoch --delimited=, | clickhouse-client --host 092.public.zeus.run --query="INSERT INTO nflows.nflows FORMAT CSVWithNames";
+            echo "REMOVING $f"
             rm "$f"
         fi
     done
-sleep 1
+    sleep 60
 done
