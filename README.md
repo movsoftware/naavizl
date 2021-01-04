@@ -29,3 +29,7 @@ The clickhouse component is a docker based container running the ClickHouse data
 grafana
 ------------
 The grafana component is any Grafana based instance (https://github.com/grafana/grafana). It communicates with the clickhouse component using the ClickHouse Grafana Datasource Plugin (https://grafana.com/grafana/plugins/vertamedia-clickhouse-datasource)
+
+Sample Output
+---------------
+![Grafana Screenshot](grafanaexample.png)

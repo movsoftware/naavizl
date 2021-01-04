@@ -16,7 +16,7 @@ do
         if ! fuser "$f" >/dev/null 2>/dev/null; then
             echo "EXPORTING $f"
             rwcut $f --timestamp-format=epoch --delimited=,
-            rwcut $f --timestamp-format=epoch --delimited=, | clickhouse-client --host 092.public.zeus.run --query="INSERT INTO nflows.nflows FORMAT CSVWithNames";
+            rwcut $f --timestamp-format=epoch --delimited=, | clickhouse-client -u clickhouse_operator --password clickhouse_operator_password --host clickhouse-naavizl-clickhouse --query="INSERT INTO nflows.nflows FORMAT CSVWithNames";
             echo "REMOVING $f"
             rm "$f"
         fi
