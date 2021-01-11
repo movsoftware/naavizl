@@ -27,13 +27,18 @@ spec:
   selector:
     app: naavizlserver
   ports:
-  - port: 18002
-    targetPort: 18002
-    nodePort: 30002
-    protocol: TCP
-    name: tcp-18002
   - port: 18003
     targetPort: 18003
     nodePort: 30003
     protocol: UDP
     name: udp-18003
+  - port: 18004
+    targetPort: 18004
+    nodePort: 30004
+    protocol: TCP
+    name: rcp-18004
+  - port: 18005
+    targetPort: 18005
+    nodePort: 30005
+    protocol: UDP
+    name: udp-18005

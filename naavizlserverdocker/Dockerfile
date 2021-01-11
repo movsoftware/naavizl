@@ -68,11 +68,13 @@ RUN apt-get install -y clickhouse-client
 
 VOLUME ["/files"]
 RUN mkdir -p /data/incremental
+RUN mkdir -p /data/smflows
 COPY silk.conf /data/silk.conf
 COPY sensors.conf /data/sensors.conf
+COPY super_mediator.conf /data/super_mediator.conf
 COPY run.sh /run.sh
 RUN chmod 0755 /run.sh
-EXPOSE 18002/tcp
-EXPOSE 18002/udp
 EXPOSE 18003/udp
+EXPOSE 18004/tcp
+EXPOSE 18005/udp
 ENTRYPOINT ["/run.sh"]
