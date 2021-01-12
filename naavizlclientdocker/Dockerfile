@@ -59,7 +59,7 @@ RUN ldconfig
 
 ENV IFACE="eth0"
 ENV SILK_HOST="localhost"
-ENV SILK_PORT=18002
+ENV SILK_PORT=18006
 
 VOLUME ["/files"]
 RUN mkdir -p /data/incremental
@@ -67,6 +67,4 @@ COPY silk.conf /data/silk.conf
 COPY sensors.conf /data/sensors.conf
 COPY run.sh /run.sh
 RUN chmod 0755 /run.sh
-EXPOSE 18002/tcp
-EXPOSE 18002/udp
 CMD [ "/bin/sh", "-c", "/run.sh" ]

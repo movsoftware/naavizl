@@ -36,9 +36,14 @@ spec:
     targetPort: 18004
     nodePort: 30004
     protocol: TCP
-    name: rcp-18004
+    name: tcp-18004
   - port: 18005
     targetPort: 18005
     nodePort: 30005
     protocol: UDP
     name: udp-18005
+  - port: 18006
+    targetPort: 18006
+    nodePort: 30006
+    protocol: TCP
+    name: tcp-18006
