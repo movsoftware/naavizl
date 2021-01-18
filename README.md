@@ -30,6 +30,7 @@ grafana
 ------------
 The grafana component is any Grafana based instance (https://github.com/grafana/grafana). It communicates with the clickhouse component using the ClickHouse Grafana Datasource Plugin (https://grafana.com/grafana/plugins/vertamedia-clickhouse-datasource)
 
+There is a sample grafana dashboard (grafana_clickhouse_dashboard.json) that can be imported and used for viewing the information.
 Sample Output
 ---------------
 ![Grafana Screenshot](grafanaexample.png)
