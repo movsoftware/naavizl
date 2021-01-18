@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: naavizlserver
-        image: naavizlserver:v1
+        image: movsoftware/naavizlserver:v1
 ---
 apiVersion: v1
 kind: Service
