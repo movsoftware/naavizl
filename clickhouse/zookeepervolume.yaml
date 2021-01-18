@@ -1,14 +1,15 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: clickhouse-volume
+  name: datadir-volume
+  namespace: zoo1ns
   labels:
     type: local
 spec:
-  storageClassName: manual
+  storageClassName: generic
   capacity:
-    storage: 20Gi
+    storage: 50Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/clickhouse"
+    path: "/zookeeper"

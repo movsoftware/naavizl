@@ -17,8 +17,7 @@ END
 echo $CMD2 | kubectl exec -i chi-naavizl-clickhouse-replcluster-0-0-0 -- clickhouse-client
 
 CMD3=$(cat <<-END
-CREATE TABLE IF NOT EXISTS nflows.smflows (flowKey UInt32,sTime UInt64,eTime UInt64,sIP UInt32,dIP UInt32,sPort UInt16,dPort UInt16,protocol UInt16,application UInt32,vlan UInt32,obid UInt32,packets UInt64,rpa
-ckets UInt64,bytes UInt64,rbytes UInt64,iflags String,riflags String,uflags String,ruflags String)
+CREATE TABLE IF NOT EXISTS nflows.smflows (flowKey UInt32,sTime UInt64,eTime UInt64,sIP UInt32,dIP UInt32,sPort UInt16,dPort UInt16,protocol UInt16,application UInt32,vlan UInt32,obid UInt32,packets UInt64,rpackets UInt64,bytes UInt64,rbytes UInt64,iflags String,riflags String,uflags String,ruflags String)
 ENGINE = MergeTree()
 ORDER BY (sIP,dIP,sPort,dPort) 
 SAMPLE BY sIP
@@ -26,3 +25,4 @@ SETTINGS index_granularity = 8192
 END
 )
 echo $CMD3 | kubectl exec -i chi-naavizl-clickhouse-replcluster-0-0-0 -- clickhouse-client
+
