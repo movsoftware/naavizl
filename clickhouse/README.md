@@ -3,9 +3,8 @@ Running Clickhouse
 
 Install Clickhouse Operator
 -------------------------------
+kubectl apply -f https://raw.githubusercontent.com/Altinity/clickhouse-operator/master/deploy/operator/clickhouse-operator-install.yaml
 git clone https://github.com/movsoftware/clickhouse-operator.git
-cd clickhouse-operator/clickhouse-operator/deploy/operator
-./clickhouse-operator-install.sh 
 
 Install Zookeeper 1 node Configuration
 --------------------------------------
@@ -21,3 +20,7 @@ Install Clickhouse Persistent Volume
 kubectl apply -f clickhousevolume.yaml 
 Install Clickhouse Cluster
 kubectl apply -f clickhouse-cluster.yaml 
+
+Install Databases
+-----------------
+sh run.sh
