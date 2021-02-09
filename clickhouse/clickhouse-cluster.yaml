@@ -21,7 +21,7 @@ spec:
         spec:
           containers:
             - name: clickhouse-pod
-              image: yandex/clickhouse-server:20.7
+              image: yandex/clickhouse-server:21.1
               volumeMounts:
                 - name: clickhouse-storage-template
                   mountPath: /var/lib/clickhouse
@@ -33,6 +33,4 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 10Gi
-
-
+              storage: 20Gi

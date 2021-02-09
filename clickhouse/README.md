@@ -4,7 +4,6 @@ Running Clickhouse
 Install Clickhouse Operator
 -------------------------------
 kubectl apply -f https://raw.githubusercontent.com/Altinity/clickhouse-operator/master/deploy/operator/clickhouse-operator-install.yaml
-git clone https://github.com/movsoftware/clickhouse-operator.git
 
 Install Zookeeper 1 node Configuration
 --------------------------------------
@@ -14,10 +13,13 @@ Install Zookeeper
 deploy/zookeeper/quick-start-persistent-volume/zookeeper-1-node-create.sh
 kubectl get all -n zoo1ns
 
-Install Clickhouse
+Install Clickhouse (2 shard/2 replicator cluster configuration)
 ------------------
-Install Clickhouse Persistent Volume
+Install Clickhouse Persistent Volumes
 kubectl apply -f clickhousevolume.yaml 
+kubectl apply -f clickhousevolume2.yaml 
+kubectl apply -f clickhousevolume3.yaml 
+kubectl apply -f clickhousevolume4.yaml 
 Install Clickhouse Cluster
 kubectl apply -f clickhouse-cluster.yaml 
 
