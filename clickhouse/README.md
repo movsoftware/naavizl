@@ -25,4 +25,4 @@ kubectl apply -f clickhouse-cluster.yaml
 
 Install Databases
 -----------------
-sh run.sh
+sh setupdb.sh
