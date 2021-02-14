@@ -1,640 +1,640 @@
 {
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": "-- Grafana --",
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "type": "dashboard"
-        }
-      ]
-    },
-    "editable": true,
-    "gnetId": null,
-    "graphTooltip": 0,
-    "id": 2,
-    "links": [],
-    "panels": [
+  "annotations": {
+    "list": [
       {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "ClickHouse",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 7,
-          "w": 24,
-          "x": 0,
-          "y": 0
-        },
-        "hiddenSeries": false,
-        "id": 18,
-        "legend": {
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "null",
-        "options": {
-          "alertThreshold": true
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.6",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "database": "nflows",
-            "dateColDataType": "",
-            "dateLoading": false,
-            "dateTimeColDataType": "eTime/1000",
-            "dateTimeType": "DATETIME",
-            "datetimeLoading": false,
-            "extrapolate": true,
-            "format": "time_series",
-            "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
-            "intervalFactor": 1,
-            "query": "SELECT\n    $timeSeries as t,\n    SUM(bytes) as sum_bytes\nFROM $table\n\nWHERE $timeFilter\n\nGROUP BY t\n\nORDER BY t\n",
-            "queryType": "randomWalk",
-            "rawQuery": "SELECT\n    (intDiv(toUInt32(eTime/1000), 1) * 1) * 1000 as t,\n    SUM(bytes) as sum_bytes\nFROM nflows.smflows\n\nWHERE eTime/1000 >= toDateTime(1611002110)\n\nGROUP BY t\n\nORDER BY t",
-            "refId": "A",
-            "round": "0s",
-            "skip_comments": true,
-            "table": "smflows",
-            "tableLoading": false
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Total Bytes for Interesting Flows",
-        "tooltip": {
-          "shared": true,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "datasource": "ClickHouse",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 10,
-          "w": 24,
-          "x": 0,
-          "y": 7
-        },
-        "id": 16,
-        "options": {
-          "showHeader": true,
-          "sortBy": []
-        },
-        "pluginVersion": "7.3.6",
-        "targets": [
-          {
-            "database": "nflows",
-            "dateColDataType": "",
-            "dateLoading": false,
-            "dateTimeColDataType": "eTime/1000",
-            "dateTimeType": "DATETIME",
-            "datetimeLoading": false,
-            "extrapolate": true,
-            "format": "table",
-            "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
-            "intervalFactor": 1,
-            "query": "SELECT\n    flowKey,\n    sTime,\n    eTime,\n    IPv4NumToString(sIP) AS sIP,\n    IPv4NumToString(dIP) AS dIP,\n    sPort,\n    dPort,\n    protocol,\n    application,\n    vlan,\n    obid,\n    packets,\n    rpackets,\n    bytes,\n    rbytes,\n    iflags,\n    riflags,\n    uflags,\n    ruflags\nFROM nflows.smflows\n\nWHERE $timeFilter\n\nORDER BY bytes DESC\n\nLIMIT 100\n",
-            "queryType": "randomWalk",
-            "rawQuery": "SELECT\n    flowKey,\n    sTime,\n    eTime,\n    IPv4NumToString(sIP) AS sIP,\n    IPv4NumToString(dIP) AS dIP,\n    sPort,\n    dPort,\n    protocol,\n    application,\n    vlan,\n    obid,\n    packets,\n    rpackets,\n    bytes,\n    rbytes,\n    iflags,\n    riflags,\n    uflags,\n    ruflags\nFROM nflows.smflows\n\nWHERE eTime/1000 >= toDateTime(1611002094)\n\nORDER BY bytes DESC\n\nLIMIT 100",
-            "refId": "A",
-            "round": "0s",
-            "skip_comments": true,
-            "table": "smflows",
-            "tableLoading": false
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Top 100 Interesting Flows by Bytes",
-        "type": "table"
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "ClickHouse",
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 8,
-          "w": 24,
-          "x": 0,
-          "y": 17
-        },
-        "hiddenSeries": false,
-        "id": 6,
-        "legend": {
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "null",
-        "options": {
-          "alertThreshold": true
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.6",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "database": "nflows",
-            "dateColDataType": "",
-            "dateLoading": false,
-            "dateTimeColDataType": "eTime",
-            "dateTimeType": "DATETIME",
-            "datetimeLoading": false,
-            "extrapolate": true,
-            "format": "time_series",
-            "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
-            "intervalFactor": 1,
-            "query": "SELECT\n    $timeSeries as t,\n    SUM(bytes) as sum_bytes\nFROM $table\n\nWHERE $timeFilter\n\nGROUP BY t\n\nORDER BY t\n",
-            "queryType": "randomWalk",
-            "rawQuery": "SELECT\n    (intDiv(toUInt32(eTime), 1) * 1) * 1000 as t,\n    SUM(bytes) as sum_bytes\nFROM nflows.nflows\n\nWHERE eTime >= toDateTime(1611002145)\n\nGROUP BY t\n\nORDER BY t",
-            "refId": "A",
-            "round": "0s",
-            "skip_comments": true,
-            "table": "nflows",
-            "tableLoading": false
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Total Bytes for All Flows",
-        "tooltip": {
-          "shared": true,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "datasource": "ClickHouse",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 0,
-          "y": 25
-        },
-        "id": 8,
-        "options": {
-          "showHeader": true
-        },
-        "pluginVersion": "7.3.6",
-        "targets": [
-          {
-            "database": "nflows",
-            "dateColDataType": "",
-            "dateLoading": false,
-            "dateTimeColDataType": "eTime",
-            "dateTimeType": "DATETIME",
-            "datetimeLoading": false,
-            "extrapolate": true,
-            "format": "table",
-            "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
-            "intervalFactor": 1,
-            "query": "SELECT\n    sIP,\n    SUM(bytes)\nFROM $table\n\nWHERE $timeFilter\nGROUP BY sIP\nORDER by SUM(bytes) DESC\nLIMIT 100\n",
-            "rawQuery": "SELECT\n    sIP,\n    SUM(bytes)\nFROM nflows.nflows\n\nWHERE eTime >= toDateTime(1611002176)\nGROUP BY sIP\nORDER by SUM(bytes) DESC\nLIMIT 100",
-            "refId": "A",
-            "round": "0s",
-            "skip_comments": true,
-            "table": "nflows",
-            "tableLoading": false
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Top 100 Source IPs by Bytes",
-        "type": "table"
-      },
-      {
-        "datasource": "ClickHouse",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 12,
-          "y": 25
-        },
-        "id": 10,
-        "options": {
-          "showHeader": true
-        },
-        "pluginVersion": "7.3.6",
-        "targets": [
-          {
-            "database": "nflows",
-            "dateColDataType": "",
-            "dateLoading": false,
-            "dateTimeColDataType": "eTime",
-            "dateTimeType": "DATETIME",
-            "datetimeLoading": false,
-            "extrapolate": true,
-            "format": "table",
-            "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
-            "intervalFactor": 1,
-            "query": "SELECT\n    dIP,\n    SUM(bytes)\nFROM $table\n\nWHERE $timeFilter\nGROUP BY dIP\nORDER by SUM(bytes) DESC\nLIMIT 100\n\n",
-            "queryType": "randomWalk",
-            "rawQuery": "SELECT\n    dIP,\n    SUM(bytes)\nFROM nflows.nflows\n\nWHERE eTime >= toDateTime(1611002194)\nGROUP BY dIP\nORDER by SUM(bytes) DESC\nLIMIT 100",
-            "refId": "A",
-            "round": "0s",
-            "skip_comments": true,
-            "table": "nflows",
-            "tableLoading": false
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Top 100 by Destination IPs by Bytes",
-        "type": "table"
-      },
-      {
-        "datasource": "ClickHouse",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 0,
-          "y": 33
-        },
-        "id": 12,
-        "options": {
-          "showHeader": true
-        },
-        "pluginVersion": "7.3.6",
-        "targets": [
-          {
-            "database": "nflows",
-            "dateColDataType": "",
-            "dateLoading": false,
-            "dateTimeColDataType": "eTime",
-            "dateTimeType": "DATETIME",
-            "datetimeLoading": false,
-            "extrapolate": true,
-            "format": "table",
-            "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
-            "intervalFactor": 1,
-            "query": "SELECT\n    dIP,\n    count()\nFROM $table\n\nWHERE $timeFilter\nGROUP BY dIP\nORDER by count() DESC\nLIMIT 100\n\n",
-            "queryType": "randomWalk",
-            "rawQuery": "SELECT\n    dIP,\n    count()\nFROM nflows.nflows\n\nWHERE eTime >= toDateTime(1611002246)\nGROUP BY dIP\nORDER by count() DESC\nLIMIT 100",
-            "refId": "A",
-            "round": "0s",
-            "skip_comments": true,
-            "table": "nflows",
-            "tableLoading": false
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Top 100 Flow Counts by Destination IP",
-        "type": "table"
-      },
-      {
-        "datasource": "ClickHouse",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 12,
-          "y": 33
-        },
-        "id": 14,
-        "options": {
-          "showHeader": true
-        },
-        "pluginVersion": "7.3.6",
-        "targets": [
-          {
-            "database": "nflows",
-            "dateColDataType": "",
-            "dateLoading": false,
-            "dateTimeColDataType": "eTime",
-            "dateTimeType": "DATETIME",
-            "datetimeLoading": false,
-            "extrapolate": true,
-            "format": "table",
-            "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
-            "intervalFactor": 1,
-            "query": "SELECT\n    sIP,\n    count()\nFROM $table\n\nWHERE $timeFilter\nGROUP BY sIP\nORDER by count() DESC\nLIMIT 100\n\n",
-            "queryType": "randomWalk",
-            "rawQuery": "SELECT\n    sIP,\n    count()\nFROM nflows.nflows\n\nWHERE eTime >= toDateTime(1611002274)\nGROUP BY sIP\nORDER by count() DESC\nLIMIT 100",
-            "refId": "A",
-            "round": "0s",
-            "skip_comments": true,
-            "table": "nflows",
-            "tableLoading": false
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Top 100 Flow Counts by Source IP",
-        "type": "table"
-      },
-      {
-        "datasource": "ClickHouse",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 17,
-          "w": 24,
-          "x": 0,
-          "y": 41
-        },
-        "id": 2,
-        "options": {
-          "showHeader": true,
-          "sortBy": [
-            {
-              "desc": true,
-              "displayName": "bytes"
-            }
-          ]
-        },
-        "pluginVersion": "7.3.6",
-        "targets": [
-          {
-            "database": "nflows",
-            "dateColDataType": "",
-            "dateLoading": false,
-            "dateTimeColDataType": "eTime",
-            "dateTimeType": "DATETIME",
-            "datetimeLoading": false,
-            "extrapolate": true,
-            "format": "table",
-            "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
-            "intervalFactor": 1,
-            "query": "SELECT *\n\nFROM nflows.nflows\n\nWHERE $timeFilter\n\nORDER BY bytes DESC\n\nLIMIT 100\n",
-            "rawQuery": "SELECT *\n\nFROM nflows.nflows\n\nWHERE eTime >= toDateTime(1611002068)\n\nORDER BY bytes DESC\n\nLIMIT 100",
-            "refId": "A",
-            "round": "0s",
-            "skip_comments": true,
-            "table": "nflows",
-            "tableLoading": false
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Top 100 Flows by Bytes",
-        "type": "table"
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
       }
-    ],
-    "refresh": "15m",
-    "schemaVersion": 26,
-    "style": "dark",
-    "tags": [],
-    "templating": {
-      "list": []
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 2,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "ClickHouse",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 18,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.6",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "database": "default",
+          "dateColDataType": "",
+          "dateLoading": false,
+          "dateTimeColDataType": "eTime/1000",
+          "dateTimeType": "DATETIME",
+          "datetimeLoading": false,
+          "extrapolate": true,
+          "format": "time_series",
+          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
+          "intervalFactor": 1,
+          "query": "SELECT\n    $timeSeries as t,\n    SUM(bytes) as sum_bytes\nFROM $table\n\nWHERE $timeFilter\n\nGROUP BY t\n\nORDER BY t\n",
+          "queryType": "randomWalk",
+          "rawQuery": false,
+          "refId": "A",
+          "round": "0s",
+          "skip_comments": true,
+          "table": "distributed_smflows",
+          "tableLoading": false
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Total Bytes for Interesting Flows",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
-    "time": {
-      "from": "now-15m",
-      "to": "now"
+    {
+      "datasource": "ClickHouse",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 16,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "database": "default",
+          "dateColDataType": "",
+          "dateLoading": false,
+          "dateTimeColDataType": "eTime/1000",
+          "dateTimeType": "DATETIME",
+          "datetimeLoading": false,
+          "extrapolate": true,
+          "format": "table",
+          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
+          "intervalFactor": 1,
+          "query": "SELECT\n    flowKey,\n    sTime,\n    eTime,\n    IPv4NumToString(sIP) AS sIP,\n    IPv4NumToString(dIP) AS dIP,\n    sPort,\n    dPort,\n    protocol,\n    application,\n    vlan,\n    obid,\n    packets,\n    rpackets,\n    bytes,\n    rbytes,\n    iflags,\n    riflags,\n    uflags,\n    ruflags\nFROM nflows.smflows\n\nWHERE $timeFilter\n\nORDER BY bytes DESC\n\nLIMIT 100\n",
+          "queryType": "randomWalk",
+          "rawQuery": false,
+          "refId": "A",
+          "round": "0s",
+          "skip_comments": true,
+          "table": "distributed_smflows",
+          "tableLoading": false
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Top 100 Interesting Flows by Bytes",
+      "type": "table"
     },
-    "timepicker": {},
-    "timezone": "",
-    "title": "Clickhouse nFlows",
-    "uid": "ZeUnFFbMk",
-    "version": 8
-  }
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "ClickHouse",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "hiddenSeries": false,
+      "id": 6,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.6",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "database": "default",
+          "dateColDataType": "",
+          "dateLoading": false,
+          "dateTimeColDataType": "eTime",
+          "dateTimeType": "DATETIME",
+          "datetimeLoading": false,
+          "extrapolate": true,
+          "format": "time_series",
+          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
+          "intervalFactor": 1,
+          "query": "SELECT\n    $timeSeries as t,\n    SUM(bytes) as sum_bytes\nFROM $table\n\nWHERE $timeFilter\n\nGROUP BY t\n\nORDER BY t\n",
+          "queryType": "randomWalk",
+          "rawQuery": false,
+          "refId": "A",
+          "round": "0s",
+          "skip_comments": true,
+          "table": "distributed_nflows",
+          "tableLoading": false
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Total Bytes for All Flows",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "ClickHouse",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 25
+      },
+      "id": 8,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "database": "default",
+          "dateColDataType": "",
+          "dateLoading": false,
+          "dateTimeColDataType": "eTime",
+          "dateTimeType": "DATETIME",
+          "datetimeLoading": false,
+          "extrapolate": true,
+          "format": "table",
+          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
+          "intervalFactor": 1,
+          "query": "SELECT\n    sIP,\n    SUM(bytes)\nFROM $table\n\nWHERE $timeFilter\nGROUP BY sIP\nORDER by SUM(bytes) DESC\nLIMIT 100\n",
+          "rawQuery": false,
+          "refId": "A",
+          "round": "0s",
+          "skip_comments": true,
+          "table": "distributed_nflows",
+          "tableLoading": false
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Top 100 Source IPs by Bytes",
+      "type": "table"
+    },
+    {
+      "datasource": "ClickHouse",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 25
+      },
+      "id": 10,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "database": "default",
+          "dateColDataType": "",
+          "dateLoading": false,
+          "dateTimeColDataType": "eTime",
+          "dateTimeType": "DATETIME",
+          "datetimeLoading": false,
+          "extrapolate": true,
+          "format": "table",
+          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
+          "intervalFactor": 1,
+          "query": "SELECT\n    dIP,\n    SUM(bytes)\nFROM $table\n\nWHERE $timeFilter\nGROUP BY dIP\nORDER by SUM(bytes) DESC\nLIMIT 100\n\n",
+          "queryType": "randomWalk",
+          "rawQuery": false,
+          "refId": "A",
+          "round": "0s",
+          "skip_comments": true,
+          "table": "distributed_nflows",
+          "tableLoading": false
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Top 100 by Destination IPs by Bytes",
+      "type": "table"
+    },
+    {
+      "datasource": "ClickHouse",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 33
+      },
+      "id": 12,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "database": "default",
+          "dateColDataType": "",
+          "dateLoading": false,
+          "dateTimeColDataType": "eTime",
+          "dateTimeType": "DATETIME",
+          "datetimeLoading": false,
+          "extrapolate": true,
+          "format": "table",
+          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
+          "intervalFactor": 1,
+          "query": "SELECT\n    dIP,\n    count()\nFROM $table\n\nWHERE $timeFilter\nGROUP BY dIP\nORDER by count() DESC\nLIMIT 100\n\n",
+          "queryType": "randomWalk",
+          "rawQuery": false,
+          "refId": "A",
+          "round": "0s",
+          "skip_comments": true,
+          "table": "distributed_nflows",
+          "tableLoading": false
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Top 100 Flow Counts by Destination IP",
+      "type": "table"
+    },
+    {
+      "datasource": "ClickHouse",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 33
+      },
+      "id": 14,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "database": "default",
+          "dateColDataType": "",
+          "dateLoading": false,
+          "dateTimeColDataType": "eTime",
+          "dateTimeType": "DATETIME",
+          "datetimeLoading": false,
+          "extrapolate": true,
+          "format": "table",
+          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
+          "intervalFactor": 1,
+          "query": "SELECT\n    sIP,\n    count()\nFROM $table\n\nWHERE $timeFilter\nGROUP BY sIP\nORDER by count() DESC\nLIMIT 100\n\n",
+          "queryType": "randomWalk",
+          "rawQuery": false,
+          "refId": "A",
+          "round": "0s",
+          "skip_comments": true,
+          "table": "distributed_nflows",
+          "tableLoading": false
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Top 100 Flow Counts by Source IP",
+      "type": "table"
+    },
+    {
+      "datasource": "ClickHouse",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "id": 2,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "bytes"
+          }
+        ]
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "database": "default",
+          "dateColDataType": "",
+          "dateLoading": false,
+          "dateTimeColDataType": "eTime",
+          "dateTimeType": "DATETIME",
+          "datetimeLoading": false,
+          "extrapolate": true,
+          "format": "table",
+          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
+          "intervalFactor": 1,
+          "query": "SELECT *\n\nFROM nflows.nflows\n\nWHERE $timeFilter\n\nORDER BY bytes DESC\n\nLIMIT 100\n",
+          "rawQuery": false,
+          "refId": "A",
+          "round": "0s",
+          "skip_comments": true,
+          "table": "distributed_nflows",
+          "tableLoading": false
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Top 100 Flows by Bytes",
+      "type": "table"
+    }
+  ],
+  "refresh": "15m",
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Clickhouse nFlows",
+  "uid": "ZeUnFFbMk",
+  "version": 9
+}
