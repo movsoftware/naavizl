@@ -16,14 +16,37 @@ spec:
       containers:
       - name: naavizlserver
         image: movsoftware/naavizlserver:latest
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: naavizlserver-tcp
+#  namespace: default
+#spec:
+#  type: LoadBalancer
+#  selector:
+#    app: naavizlserver
+#  ports:
+#  - port: 18004
+#    targetPort: 18004
+#    nodePort: 30004
+#    protocol: TCP
+#    name: tcp-18004
+#  - port: 18006
+#    targetPort: 18006
+#    nodePort: 30006
+#    protocol: TCP
+#    name: tcp-18006
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: naavizlserver
+  name: naavizlserver-udp
   namespace: default
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: naavizlserver
   ports:
@@ -32,18 +55,8 @@ spec:
     nodePort: 30003
     protocol: UDP
     name: udp-18003
-  - port: 18004
-    targetPort: 18004
-    nodePort: 30004
-    protocol: TCP
-    name: tcp-18004
   - port: 18005
     targetPort: 18005
     nodePort: 30005
     protocol: UDP
     name: udp-18005
-  - port: 18006
-    targetPort: 18006
-    nodePort: 30006
-    protocol: TCP
-    name: tcp-18006
