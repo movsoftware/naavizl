@@ -4,7 +4,7 @@ Running Clickhouse
 Install Clickhouse Operator
 -------------------------------
 git clone https://github.com/movsoftware/clickhouse-operator.git
-kubectl apply -f https://raw.githubusercontent.com/Altinity/clickhouse-operator/master/deploy/operator/clickhouse-operator-install.yaml
+kubectl apply -f clickhouse-operator/master/deploy/operator/clickhouse-operator-install.yaml
 
 Install Zookeeper 1 node Configuration
 --------------------------------------
