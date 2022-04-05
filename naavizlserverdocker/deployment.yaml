@@ -23,7 +23,7 @@ spec:
 #  name: naavizlserver-tcp
 #  namespace: default
 #spec:
-#  type: LoadBalancer
+#  type: NodePort
 #  selector:
 #    app: naavizlserver
 #  ports:
@@ -46,7 +46,7 @@ metadata:
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: nlb
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: naavizlserver
   ports:

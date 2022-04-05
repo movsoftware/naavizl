@@ -21,7 +21,7 @@ spec:
         spec:
           containers:
             - name: clickhouse-pod
-              image: yandex/clickhouse-server:21.1
+              image: yandex/clickhouse-server:22.1
               livenessProbe:
                 tcpSocket:
                   port: 8123
